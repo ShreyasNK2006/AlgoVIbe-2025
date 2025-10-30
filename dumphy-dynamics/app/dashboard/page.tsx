@@ -12,12 +12,19 @@ import DPVisualizer from '@/components/dp-visualizer';
 import Timeline from '@/components/timeline';
 import CharacterCommentary from '@/components/character-commentary';
 import StatsPanel from '@/components/stats-panel';
+import SettingsPanel from '@/components/settings-panel';
+import ExportPanel from '@/components/export-panel';
+import { useSoundEffects } from '@/components/sound-manager';
+import LoadingSpinner from '@/components/loading-spinner';
 import { TSPResult, DPStep } from '@/lib/types';
 
 // Dynamically import MapVisualization to avoid SSR issues with ReactFlow
 const MapVisualization = dynamic(
   () => import('@/components/map-visualization'),
-  { ssr: false }
+  { 
+    ssr: false,
+    loading: () => <LoadingSpinner />
+  }
 );
 
 export default function Dashboard() {
@@ -35,6 +42,11 @@ export default function Dashboard() {
   const [currentStep, setCurrentStep] = useState(0);
   const [speed, setSpeed] = useState(1);
   const [phase, setPhase] = useState<'planning' | 'executing' | 'completed'>('planning');
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [particlesEnabled, setParticlesEnabled] = useState(true);
+  const [animationsEnabled, setAnimationsEnabled] = useState(true);
+
+  const { play } = useSoundEffects(soundEnabled);
 
   // Initialize TSP solver and calculate route
   useEffect(() => {
@@ -58,6 +70,7 @@ export default function Dashboard() {
         if (prev >= result.steps.length - 1) {
           pauseSimulation();
           setPhase('completed');
+          play('complete'); // Play completion sound
           return prev;
         }
         const next = prev + 1;
@@ -68,29 +81,42 @@ export default function Dashboard() {
         else if (progress < 0.9) setPhase('executing');
         else setPhase('completed');
         
+        play('step'); // Play step sound
         return next;
       });
     }, 1000 / speed);
 
     return () => clearInterval(interval);
-  }, [isRunning, speed, result, pauseSimulation]);
+  }, [isRunning, speed, result, pauseSimulation, play]);
 
   const handleReset = () => {
     resetSimulation();
     setCurrentStep(0);
     setPhase('planning');
+    play('click');
   };
 
   const handleStepForward = () => {
     if (result && currentStep < result.steps.length - 1) {
       setCurrentStep(currentStep + 1);
+      play('step');
     }
   };
 
   const handleStepBackward = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
+      play('step');
     }
+  };
+
+  const handlePlayPause = () => {
+    if (isRunning) {
+      pauseSimulation();
+    } else {
+      startSimulation();
+    }
+    play('click');
   };
 
   const { scrollY } = useScroll();
@@ -160,8 +186,16 @@ export default function Dashboard() {
                 </p>
               </div>
             </div>
-            <div className="text-sm text-slate-300">
-              {houses.length} houses • {result?.steps.length || 0} DP states
+            <div className="flex items-center gap-3">
+              <div className="text-sm text-slate-300">
+                {houses.length} houses • {result?.steps.length || 0} DP states
+              </div>
+              <ExportPanel
+                route={result?.path || []}
+                houses={houses}
+                totalDistance={result?.totalDistance || 0}
+                timeElapsed={timeElapsed}
+              />
             </div>
           </div>
         </motion.nav>
@@ -199,10 +233,10 @@ export default function Dashboard() {
                 speed={speed}
                 currentStep={currentStep}
                 totalSteps={result?.steps.length || 0}
-                onPlay={startSimulation}
-                onPause={pauseSimulation}
+                onPlay={handlePlayPause}
+                onPause={handlePlayPause}
                 onReset={handleReset}
-                onSpeedChange={setSpeed}
+                onSpeedChange={(s) => { setSpeed(s); play('click'); }}
                 onStepForward={handleStepForward}
                 onStepBackward={handleStepBackward}
               />
@@ -261,6 +295,13 @@ export default function Dashboard() {
           currentPhase={phase}
           currentStep={currentStep}
           totalSteps={result?.steps.length || 0}
+        />
+
+        {/* Settings Panel */}
+        <SettingsPanel
+          onSoundToggle={setSoundEnabled}
+          onParticlesToggle={setParticlesEnabled}
+          onAnimationsToggle={setAnimationsEnabled}
         />
       </div>
     </div>
