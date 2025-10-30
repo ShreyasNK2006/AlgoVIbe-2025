@@ -57,8 +57,6 @@ export class TSPSolver {
   }
 
   private getTravelTime(from: number, to: number): number {
-
-    if (from ==  -1) return 0;
     // Convert km to travel time in minutes
     return (this.dist[from][to] / this.travelSpeed) * 60;
   }
@@ -93,7 +91,7 @@ export class TSPSolver {
     const newTime = visitTime + showingDuration;
     
     // Calculate score: preference bonus - distance penalty
-    const distancePenalty = from === -1 ? 0 : this.dist[from][to] * 0.5;
+    const distancePenalty = this.dist[from][to] * 0.5;
     const preferenceBonus = this.preferences[to] * 10;
     const score = preferenceBonus - distancePenalty;
     
