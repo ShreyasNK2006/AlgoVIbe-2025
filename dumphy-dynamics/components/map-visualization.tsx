@@ -15,6 +15,7 @@ import 'reactflow/dist/style.css';
 import { House } from '@/lib/types';
 import { motion } from 'framer-motion';
 import { Home, MapPin } from 'lucide-react';
+import ParticleTrail from './particle-trail';
 
 interface MapVisualizationProps {
   houses: House[];
@@ -41,13 +42,18 @@ function HouseNode({ data }: NodeProps) {
       animate={isCurrent ? { scale: 1.1 } : { scale: 1 }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
+      <ParticleTrail isActive={isCurrent} color="#6366f1" count={15} />
       <div className="flex items-start gap-3">
-        <div className={`
-          p-2 rounded-lg
-          ${isCurrent ? 'bg-indigo-500' : 'bg-slate-800'}
-        `}>
+        <motion.div 
+          className={`
+            p-2 rounded-lg
+            ${isCurrent ? 'bg-indigo-500' : 'bg-slate-800'}
+          `}
+          animate={isCurrent ? { rotate: [0, -10, 10, -10, 0] } : { rotate: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <Home className="w-5 h-5 text-slate-50" />
-        </div>
+        </motion.div>
         <div className="flex-1 min-w-0">
           <h3 className="font-heading text-sm font-semibold text-slate-50 truncate">
             {data.house.name}
