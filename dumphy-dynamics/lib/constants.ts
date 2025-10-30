@@ -198,3 +198,24 @@ export const philQuotes = [
   "Success is measured in satisfied clients per kilometer!",
   "When in doubt, use a bitmask!"
 ];
+
+// Organized commentary by phase for visualization
+export const COMMENTARY = {
+  planning: [
+    { character: 'Phil', text: "Time to show these houses like a Dunphy!" },
+    { character: 'Alex', text: "The optimal solution requires dynamic programming..." },
+    { character: 'Luke', text: "Dad's doing math? This should be interesting..." },
+  ],
+  executing: [
+    { character: 'Phil', text: "Nailed it! Phil's-osophy in action!" },
+    { character: 'Claire', text: "You actually did it without calling me 5 times!" },
+    { character: 'Luke', text: "Dad used math! And it WORKED!" },
+    { character: 'Alex', text: "Finally, someone uses their brain around here!" },
+  ],
+  completed: [
+    { character: 'Phil', text: "And that's how Phil Dunphy gets it done!" },
+    { character: 'Claire', text: "I'm... actually impressed. Don't let it go to your head." },
+    { character: 'Luke', text: "That was cooler than I expected!" },
+    { character: 'Haley', text: "Okay that's actually impressive I guess" },
+  ],
+};

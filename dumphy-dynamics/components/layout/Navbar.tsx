@@ -17,7 +17,7 @@ export function Navbar() {
             className="flex items-center gap-2 cursor-pointer"
             whileHover={{ scale: 1.05 }}
           >
-            <Home className="w-6 h-6 text-accent-cyan" />
+            <Home className="w-6 h-6 text-cyan-400" />
             <span className="text-xl font-heading font-bold text-gradient">
               Dunphy Dynamics
             </span>
@@ -27,10 +27,10 @@ export function Navbar() {
         {/* Stats */}
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-accent-gold" />
+            <TrendingUp className="w-4 h-4 text-yellow-400" />
             <div>
               <p className="text-xs text-gray-400">Satisfaction</p>
-              <p className="text-sm font-heading font-bold text-accent-gold">
+              <p className="text-sm font-heading font-bold text-yellow-400">
                 {totalSatisfaction.toFixed(0)}%
               </p>
             </div>

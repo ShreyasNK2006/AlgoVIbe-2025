@@ -1,67 +1,92 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
-:root {
-  /* Backgrounds */
-  --bg-primary: #0B0F19;
-  --bg-secondary: #1B2430;
-  --bg-tertiary: #2A3342;
+@theme {
+  /* Custom spacing, colors that work with Tailwind utilities */
+  --color-accent-primary: #6366f1;
+  --color-accent-secondary: #8b5cf6;
   
-  /* Accents */
-  --accent-cyan: #00FFFF;
-  --accent-gold: #FFD93D;
-  --accent-magenta: #FF6EC7;
-  --accent-purple: #A855F7;
-  
-  /* States */
-  --success: #10B981;
-  --warning: #F59E0B;
-  --error: #FF4E50;
-  --info: #3B82F6;
-  
-  /* Text */
-  --text-primary: #F1F5F9;
-  --text-secondary: #A0AEC0;
-  --text-tertiary: #64748B;
-  --text-inverse: #0B0F19;
-  
-  /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.2);
-  --glass-shadow: rgba(0, 0, 0, 0.3);
+  /* Font Families */
+  --font-family-heading: Orbitron, system-ui, sans-serif;
+  --font-family-body: Manrope, system-ui, sans-serif;
+  --font-family-mono: "JetBrains Mono", Consolas, monospace;
 }
 
-@layer base {
-  * {
-    @apply border-gray-700;
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
   }
-  
-  body {
-    @apply bg-bg-primary text-text-primary font-body;
-    @apply antialiased;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
+  50% {
+    opacity: 0.5;
   }
 }
 
-@layer utilities {
-  .glass-card {
-    @apply bg-white/5 border border-white/10 backdrop-blur-xl rounded-2xl shadow-2xl;
+@keyframes glow {
+  0%, 100% {
+    opacity: 1;
+    filter: brightness(1);
   }
-  
-  .text-gradient {
-    @apply bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent;
+  50% {
+    opacity: 0.8;
+    filter: brightness(1.2);
   }
-  
-  .glow-cyan {
-    @apply shadow-lg shadow-cyan-500/50;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
   }
-  
-  .glow-gold {
-    @apply shadow-lg shadow-yellow-400/50;
+  50% {
+    transform: translateY(-10px);
   }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+body {
+  background-color: #0B0F19;
+  color: #F1F5F9;
+  font-family: var(--font-family-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+}
+
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.text-gradient {
+  background-image: linear-gradient(to right, rgb(34 211 238), rgb(168 85 247));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.shadow-glow {
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+}
+
+.shadow-glow-lg {
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.7);
 }
 
 /* Custom Scrollbar */

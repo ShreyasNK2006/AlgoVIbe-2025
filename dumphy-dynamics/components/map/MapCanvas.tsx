@@ -23,7 +23,7 @@ export function MapCanvas({ houses }: MapCanvasProps) {
 
       {/* LA City label */}
       <div className="absolute top-4 left-4 glass-card px-3 py-2">
-        <p className="text-xs font-heading text-accent-cyan">Los Angeles Suburbs</p>
+        <p className="text-xs font-heading text-cyan-400">Los Angeles Suburbs</p>
       </div>
 
       {/* Houses */}
@@ -57,11 +57,11 @@ export function MapCanvas({ houses }: MapCanvasProps) {
       <div className="absolute bottom-4 right-4 glass-card px-4 py-3 space-y-2">
         <p className="text-xs font-heading font-semibold text-gray-300 mb-2">Legend</p>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-accent-cyan shadow-lg shadow-cyan-500/50" />
+          <div className="w-3 h-3 rounded-full bg-cyan-500 shadow-lg shadow-cyan-500/50" />
           <span className="text-xs text-gray-400">Available</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-accent-gold shadow-lg shadow-yellow-400/50" />
+          <div className="w-3 h-3 rounded-full bg-yellow-500 shadow-lg shadow-yellow-400/50" />
           <span className="text-xs text-gray-400">Visited</span>
         </div>
         <div className="flex items-center gap-2">

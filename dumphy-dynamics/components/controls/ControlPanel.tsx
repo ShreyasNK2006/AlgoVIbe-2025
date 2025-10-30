@@ -97,7 +97,7 @@ export function ControlPanel() {
             [&::-webkit-slider-thumb]:w-4
             [&::-webkit-slider-thumb]:h-4
             [&::-webkit-slider-thumb]:rounded-full
-            [&::-webkit-slider-thumb]:bg-accent-cyan
+            [&::-webkit-slider-thumb]:bg-cyan-500
             [&::-webkit-slider-thumb]:cursor-pointer
             [&::-webkit-slider-thumb]:shadow-lg
             [&::-webkit-slider-thumb]:shadow-cyan-500/50"
@@ -118,7 +118,7 @@ export function ControlPanel() {
                 value={algo}
                 checked={algorithm === algo}
                 onChange={() => setAlgorithm(algo as any)}
-                className="w-4 h-4 text-accent-cyan focus:ring-accent-cyan"
+                className="w-4 h-4 text-cyan-400 focus:ring-cyan-500"
               />
               <span className="text-sm text-gray-300 capitalize">
                 {algo === 'dp' ? 'Dynamic Programming' : algo === 'greedy' ? 'Greedy Heuristic' : 'Branch & Bound'}
@@ -145,7 +145,7 @@ export function ControlPanel() {
               [&::-webkit-slider-thumb]:w-4
               [&::-webkit-slider-thumb]:h-4
               [&::-webkit-slider-thumb]:rounded-full
-              [&::-webkit-slider-thumb]:bg-accent-gold
+              [&::-webkit-slider-thumb]:bg-yellow-500
               [&::-webkit-slider-thumb]:cursor-pointer"
           />
         </div>
@@ -165,7 +165,7 @@ export function ControlPanel() {
               [&::-webkit-slider-thumb]:w-4
               [&::-webkit-slider-thumb]:h-4
               [&::-webkit-slider-thumb]:rounded-full
-              [&::-webkit-slider-thumb]:bg-accent-magenta
+              [&::-webkit-slider-thumb]:bg-pink-500
               [&::-webkit-slider-thumb]:cursor-pointer"
           />
         </div>

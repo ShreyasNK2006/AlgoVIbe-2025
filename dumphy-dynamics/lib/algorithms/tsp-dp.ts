@@ -1,4 +1,4 @@
-import { House, TSPResult, DPStep } from './types';
+import { House, TSPResult, DPStep } from '../types';
 
 export interface TSPInput {
   houses: House[];
@@ -13,7 +13,7 @@ export class TSPSolver {
   private timeWindows: [number, number][];
   private preferences: number[];
   private dp: number[][];
-  private parent: [number, number][];
+  private parent: number[][][]; // Changed from [number, number][] to number[][][]
   private steps: DPStep[];
   private travelSpeed: number;
   private startTime: number;
@@ -36,7 +36,9 @@ export class TSPSolver {
     // Initialize DP table
     const maxMask = 1 << this.n;
     this.dp = Array(maxMask).fill(0).map(() => Array(this.n).fill(-Infinity));
-    this.parent = Array(maxMask).fill(0).map(() => Array(this.n).fill([-1, -1] as [number, number]));
+    this.parent = Array(maxMask).fill(0).map(() => 
+      Array(this.n).fill(null).map(() => [-1, -1] as [number, number])
+    );
   }
 
   private calculateDistances(): void {
